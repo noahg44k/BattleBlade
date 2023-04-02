@@ -1,0 +1,60 @@
+sword
+knife
+dagger
+bow
+crossbow
+fire staff
+electric staff
+life staff
+death staff
+light staff
+dark staff
+poison staff
+earth staff
+elder staff
+battle axe
+hatchet
+war axe
+warhammer
+the big one (giant hammer)
+spear
+
+wolfskin helmet
+orcskin helmet
+seadweller helmet
+hellmet
+shellmet
+ent helmet
+bone helmet
+elder helmet
+leather helmet
+chain helmet
+steel helmet
+inferno helmet
+
+wolfskin armor
+orcskin armor
+seadweller armor
+hell armor
+shell armor
+ent armor
+bone armor
+elder armor
+leather armor
+chain armor
+steel armor
+inferno armor
+
+health potion
+large health potion
+wolf meat
+orc meat
+seadweller meat
+hell meat
+shell meat
+ent meat
+bone meat
+elder meat
+leather meal
+chain meal
+steel meal

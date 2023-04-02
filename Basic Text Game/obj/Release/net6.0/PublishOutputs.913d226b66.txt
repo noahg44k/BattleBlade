@@ -1,0 +1,5 @@
+C:\Users\otis2\Desktop\Games\BattleBlade!\BattleBlade!.exe
+C:\Users\otis2\Desktop\Games\BattleBlade!\BattleBlade!.dll
+C:\Users\otis2\Desktop\Games\BattleBlade!\BattleBlade!.deps.json
+C:\Users\otis2\Desktop\Games\BattleBlade!\BattleBlade!.runtimeconfig.json
+C:\Users\otis2\Desktop\Games\BattleBlade!\BattleBlade!.pdb

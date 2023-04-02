@@ -1,0 +1,24 @@
+﻿skeleton
+zombie
+spider
+drake
+dragon
+slime
+ghoul
+ghost
+wolf
+orc
+fisk
+torkle
+elder shaantii (foot soldier)
+elder rakkek(archer)
+elder vizarum (wizard)
+ent
+oxmen
+inferno golem
+demon
+steel golem
+eel
+wyvern
+hippogriff
+wyrm
