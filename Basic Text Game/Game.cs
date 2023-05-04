@@ -539,40 +539,10 @@ public class Game
             ChooseClass();
             player.maxHealth = Role.roleContr.calculateHealth(player.role.getStat("Vigor").value);
             player.health = player.maxHealth;
-            while (true)
-            {
-                PrintTitle();
-                Console.WriteLine("Would you like to begin your adventure?");
-                Thread.Sleep(500);
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine("(y/n)");
-                tc('W');
-                string choice = Console.ReadLine().ToLower();
-                if (choice == "y")
-                {
-                    PrintTitle();
-                    Console.WriteLine("Let's begin!");
-                    Thread.Sleep(3000);
-                    return;
-                }
-                else if (choice == "n")
-                {
-                    Console.WriteLine("\nAh, farewell!");
-                    Thread.Sleep(500);
-                    Environment.Exit(0);
-                    return;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid input");
-                    Thread.Sleep(500);
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine("Press any key to continue");
-                    tc('W');
-                    Console.ReadKey();
-                }
-            }
+            PrintTitle();
+            Console.WriteLine("Let's begin!");
+            Thread.Sleep(3000);
+            return;
         }
     }
 

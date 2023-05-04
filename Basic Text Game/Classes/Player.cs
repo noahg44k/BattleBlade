@@ -363,7 +363,7 @@ namespace Basic_Text_Game.Classes
         //ATTACK VARS
         //USED FOR "TIRING YOU OUT"
         //INCREASES THE AMOUNT OF REST YOU CAN HAVE IF YOU ATTACK FOUR TIMES
-        int numOfAttacks = 0;
+        public int numOfAttacks = 0;
 
         public float calculateDamage(int lvl, int minStat, int scaleStat)
         {
@@ -472,94 +472,6 @@ namespace Basic_Text_Game.Classes
                 damage += calculateDamage(role.getStat("Vigor").value, weapon.minStats["Vigor"], weapon.sclStats["Vigor"]);
             }
             return damage;
-        }
-
-        private float determineAtkDmg(float wepDmg)
-        {
-            float damage = 0;
-            Random r = new Random();
-            damage = r.Next((int)(wepDmg - (wepDmg * 0.25f)), (int)(wepDmg + (wepDmg * 0.25f)))+1;
-            return damage;
-        }
-
-        public void attack()
-        {
-            while (true)
-            {
-                try
-                {
-                    Game.PrintTitle();
-
-                    Console.WriteLine("You are attacking with " + currentWeapon.name);
-
-                    numOfAttacks++;
-
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine("Type 'cancel' to cancel");
-                    Console.WriteLine("Press Enter to continue");
-                    Game.tc('W');
-
-                    string choice = Console.ReadLine().ToLower();
-
-
-                    if (numOfAttacks == 4)
-                    {
-                        numOfAttacks = 0;
-                        restLevel = 0;
-                    }
-
-                        if (choice.Contains("cancel"))
-                    {
-                        Enemy.completedAction = false;
-                        Game.PrintTitle();
-                        return;
-                    }
-                    else if (choice == null || choice == "" || choice == " ")
-                    {
-                        Random rand = new Random();
-                        int critChance = rand.Next(1, 16);
-
-                        if(critChance == 4)
-                        {
-                            Game.PrintTitle();
-                            dmg = (determineAtkDmg(currentWeapon.wepDmg + wepDamageWithWeaponScaling(currentWeapon)) * 5); //ADD DAMAGE BASED ON WEAPON SCALING AND WEAPON MIN SKILL WIELD LVL;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("CRITICAL HIT");
-                            Game.tc('W');
-                            Console.WriteLine("You attacked with {0}", currentWeapon.name + "!");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("You dealt {0}", dmg.ToString("0.00") + " damage!");
-                            Game.tc('W');
-                            Enemy.currentEnemy.health -= dmg;
-                            Enemy.completedAction = true;
-                            return;
-                        }
-                        else
-                        {
-                            Game.PrintTitle();
-                            dmg = determineAtkDmg(currentWeapon.wepDmg + wepDamageWithWeaponScaling(currentWeapon));//ADD DAMAGE BASED ON WEAPON SCALING AND WEAPON MIN SKILL WIELD LVL
-                            Console.WriteLine("You attacked with {0}", currentWeapon.name + "!");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("You dealt {0}", dmg.ToString("0.00") + " damage!");
-                            Game.tc('W');
-                            Enemy.currentEnemy.health -= dmg;
-                            Enemy.completedAction = true;
-                            return;
-                        }
-                    }
-                }
-                catch
-                {
-                    Game.tc('R');
-                    Console.WriteLine("Invalid input");
-                    Thread.Sleep(500);
-                    Game.tc('g');
-                    Console.WriteLine("Press any key to continue");
-                    Game.tc('W');
-                    Console.ReadKey();
-                }
-
-            }
         }
 
         public void useItem()
@@ -746,7 +658,7 @@ namespace Basic_Text_Game.Classes
 
         //REST VARS
         int restLimit = 8;
-        int restLevel = 0;
+        public int restLevel = 0;
 
         public void rest()
         {

@@ -192,61 +192,58 @@ namespace Basic_Text_Game.Classes
             {
                 while(true)
                 {
-                    try
+                    SaveData.Save();
+                    Game.PrintTitle();
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(Game.player.name);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("HP: {0}\n", Game.player.health.ToString("0.00"));
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine(currentEnemy.name);
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("Enemy HP: {0}", currentEnemy.health.ToString("0.00"));
+                    Console.WriteLine("Enemy Damage: {0}", currentEnemy.dmg.ToString("0.00"));
+                    Game.tc('W');
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("\nWhat would you like to do?\n");
+
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("Attack");
+                    Console.WriteLine("Use/Equip Item");
+                    Console.WriteLine("Run away");
+                    Game.tc('W');
+                    choice = Console.ReadLine().ToLower();
+                    if (choice.Contains("attack") || choice.Contains("1"))
                     {
-                        SaveData.Save();
-                        Game.PrintTitle();
-
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(Game.player.name);
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine("HP: {0}\n", Game.player.health.ToString("0.00"));
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine(currentEnemy.name);
-                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                        Console.WriteLine("Enemy HP: {0}", currentEnemy.health.ToString("0.00"));
-                        Console.WriteLine("Enemy Damage: {0}", currentEnemy.dmg.ToString("0.00"));
-                        Game.tc('W');
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                        Console.WriteLine("\nWhat would you like to do?\n");
-
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine("Attack");
-                        Console.WriteLine("Use/Equip Item");
-                        Console.WriteLine("Run away");
-                        Game.tc('W');
-                        choice = Console.ReadLine().ToLower();
-                        if (choice.Contains("attack") || choice.Contains("1"))
-                        {
-                            Game.player.attack();
-                            Clock.increaseTime(1);
-                            break;
-                        }
-                        else if (choice.Contains("item") || choice.Contains("2"))
-                        {
-                            Game.player.useItem();
-                            Clock.increaseTime(1);
-                            break;
-                        }
-                        else if (choice.Contains("run") || choice.Contains("3") || choice.Contains("exit"))
-                        {
-                            Game.PrintTitle();
-                            Console.WriteLine("You ran away! Like a coward!");
-                            Thread.Sleep(500);
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                            Console.WriteLine("Press any key to continue");
-                            Game.tc('W');
-                            Console.ReadKey();
-                            keepFighting = false;
-                            completedAction = false;
-                            return;
-                        }
-                        else
-                        {
-
-                        }
+                        AttackController.playerAttack();
+                        Clock.increaseTime(1);
+                        break;
                     }
-                    catch
+                    else if (choice.Contains("item") || choice.Contains("2"))
+                    {
+                        Game.player.useItem();
+                        Clock.increaseTime(1);
+                        break;
+                    }
+                    else if (choice.Contains("run") || choice.Contains("3") || choice.Contains("exit"))
+                    {
+                        Game.PrintTitle();
+                        Console.WriteLine("You ran away! Like a coward!");
+                        Thread.Sleep(500);
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("Press any key to continue");
+                        Game.tc('W');
+                        Console.ReadKey();
+                        keepFighting = false;
+                        completedAction = false;
+                        return;
+                    }
+                    else
+                    {
+
+                    }
+                    /*catch
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid input");
@@ -258,7 +255,7 @@ namespace Basic_Text_Game.Classes
                         Console.ReadKey();
                         completedAction = false;
                         choice = "";
-                    }
+                    }*/
                 }
 
                 //ENEMY ATTACK

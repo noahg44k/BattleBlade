@@ -12,6 +12,7 @@ namespace Basic_Text_Game.Classes
         public string use = "";
         public int ID = 0;
         public int AR = 0; //ARMOR RATING
+        public int energyConsumption = 1;
         public int stage = 1;
         public int stackHeight = 1;
         public int currentStack = 0;
@@ -42,16 +43,19 @@ namespace Basic_Text_Game.Classes
 
         int prevID = 0;
 
-        public Item copyItem(Item item)
+        public static Item copyItem(Item item)
         {
             Item copy = new Item();
             copy.name = item.name;
             copy.heal = item.heal;
             copy.wepDmg = item.wepDmg;
+            copy.energyConsumption = item.energyConsumption;
             copy.AR = item.AR;
             copy.ID = item.ID;
             copy.use = item.use;
             copy.equipped = item.equipped;
+            copy.stage = item.stage;
+            copy.stackHeight = item.stackHeight;
 
             return copy;
         }
@@ -62,7 +66,8 @@ namespace Basic_Text_Game.Classes
             {
                 if (item.name.ToLower() == name.ToLower())
                 {
-                    return item;
+                    Item newItem = item;
+                    return newItem;
                 }
             }
             Console.WriteLine("Could not find item of name: {0}", name);
@@ -75,17 +80,18 @@ namespace Basic_Text_Game.Classes
             {
                 if (item.ID == ID)
                 {
-                    return item;
+                    Item newItem = item;
+                    return newItem;
                 }
             }
             Console.WriteLine("Could not find item of ID: {0}", ID);
             return null;
         }
 
-        public void newWeapon(string name, float dmg, float heal, int stage, 
-            List<string> scaleStatNames = null, List<int> scaleStatValues = null,
+        public void newWeapon(string name, float dmg, float heal, int stage,
             List<string> minStatNames = null, List<int> minStatValues = null,
-            float discoverChance = 1)
+            List<string> scaleStatNames = null, List<int> scaleStatValues = null,
+            int energyConsumption = 1, float discoverChance = 1)
         {
             Item newWeapon = new Item();
             newWeapon.name = name;
@@ -96,6 +102,7 @@ namespace Basic_Text_Game.Classes
             newWeapon.use = "equip";
             newWeapon.equipped = false;
             newWeapon.stage = stage;
+            newWeapon.energyConsumption = energyConsumption;
             newWeapon.discoverChance = discoverChance;
 
             try
@@ -114,7 +121,10 @@ namespace Basic_Text_Game.Classes
                 newWeapon.sclStats.Add("Intelligence", 1);
                 newWeapon.sclStats.Add("Precision", 1);
             }
-            catch{}
+            catch
+            {
+                throw;
+            }
 
             if (minStatNames != null)
             {
@@ -285,17 +295,18 @@ namespace Basic_Text_Game.Classes
             //         name   dmg, heal, stg,               required skill              required skill lvl                  scaling skill         scaling skill amount
             newWeapon("Sword", 8, -3.5f, 1, (new List<string> { "Strength" }), (new List<int>() { 5 }), new List<string>() { "Strength"}, new List<int>() { 5 }, 1);
             newWeapon("Knife", 3, -1, 1, (new List<string> { "Speed" }), (new List<int>() { 3 }), new List<string>() { "Speed" }, new List<int>() { 3 }, 1);
-            newWeapon("Dagger", 5f, -1.5f, 1, (new List<string> { "Speed" }), (new List<int>() { 5 }), new List<string>() { "Speed" }, new List<int>() { 5 }, 0.8f);
-            newWeapon("Short Bow", 10, -5, 1, (new List<string> { "Precision", "Strength" }), (new List<int>() { 6, 4 }), new List<string>() { "Precision", "Strength" }, new List<int>() { 6, 3 }, 0.7f);
-            newWeapon("Hatchet", 8f, -2, 1, (new List<string> { "Strength", "Speed" }), (new List<int>() { 3, 2 }), new List<string>() { "Strength", "Speed" }, new List<int>() { 3, 3 }, 0.8f);
+            newWeapon("Dagger", 5f, -1.5f, 1, (new List<string> { "Speed" }), (new List<int>() { 5 }), new List<string>() { "Speed" }, new List<int>() { 5 }, 1, 0.8f);
+            newWeapon("Short Bow", 10, -5, 1, (new List<string> { "Precision", "Strength" }), (new List<int>() { 6, 4 }), new List<string>() { "Precision", "Strength" }, new List<int>() { 6, 3 }, 1, 0.7f);
+            newWeapon("Hatchet", 8f, -2, 1, (new List<string> { "Strength", "Speed" }), (new List<int>() { 3, 3 }), new List<string>() { "Strength", "Speed" }, new List<int>() { 3, 3 }, 1, 0.8f);
+            newWeapon("Great Sword", 15, -8.5f, 1, (new List<string> { "Strength" }), (new List<int>() { 12 }), new List<string>() { "Strength" }, new List<int>() { 7 }, 2);
 
-            newWeapon("Crossbow", 14, -8, 2, (new List<string> { "Precision", "Strength" }), (new List<int>() { 6, 5 }), new List<string>() { "Precision", "Strength" }, new List<int>() { 5, 2 }, 0.85f);
+            newWeapon("Crossbow", 14, -8, 2, (new List<string> { "Precision", "Strength" }), (new List<int>() { 6, 5 }), new List<string>() { "Precision", "Strength" }, new List<int>() { 5, 2 }, 1, 0.85f);
             newWeapon("Spear", 13, -4, 2, (new List<string> { "Strength", "Precision" }), (new List<int>() { 6, 5 }), new List<string>() { "Strength", "Precision" }, new List<int>() { 5, 4 }, 1);
             newWeapon("Warhammer", 11.5f, -2, 2, (new List<string> { "Strength" }), (new List<int>() { 5 }), new List<string>() { "Strength" }, new List<int>() { 4 }, 1);
-            newWeapon("War Axe", 15.5f, -4, 2, (new List<string> { "Strength" }), (new List<int>() { 10 }), new List<string>() { "Strength" }, new List<int>() { 9 }, 0.8f);
-            newWeapon("Club", 12, -5, 2, (new List<string> { "Strength" }), (new List<int>() { 7 }), new List<string>() { "Strength" }, new List<int>() { 9 }, 0.7f);
+            newWeapon("War Axe", 15.5f, -4, 2, (new List<string> { "Strength" }), (new List<int>() { 12 }), new List<string>() { "Strength" }, new List<int>() { 9 }, 2, 0.8f);
+            newWeapon("Club", 12, -5, 2, (new List<string> { "Strength" }), (new List<int>() { 10 }), new List<string>() { "Strength" }, new List<int>() { 9 }, 2, 0.7f);
 
-            newWeapon("The Big One", 120, -40, 3);
+            newWeapon("The Big One", 120, -40, 3, (new List<string> { "Strength" }), (new List<int>() { 20 }), new List<string>() { "Strength" }, new List<int>() { 8 }, 2, 0.3f);
             newWeapon("Life Staff", 18, 100, 3);
             newWeapon("Death Staff", 200, -100, 3);
             newWeapon("Dragon Club", 212, -60, 3);
@@ -304,7 +315,7 @@ namespace Basic_Text_Game.Classes
             newWeapon("Light Staff", 20, -2, 4, (new List<string> { "Intelligence" }), (new List<int>() { 7 }), new List<string>() { "Intelligence" }, new List<int>() { 6 });
             newWeapon("Dark Staff", 20, -2, 4, (new List<string> { "Intelligence" }), (new List<int>() { 7 }), new List<string>() { "Intelligence" }, new List<int>() { 6 });
             newWeapon("Poison Staff", 29, -20, 4, (new List<string> { "Intelligence" }), (new List<int>() { 5 }), new List<string>() { "Intelligence" }, new List<int>() { 5 });
-            newWeapon("Trident", 26, -20, 4, (new List<string> { "Strength", "Precision" }), (new List<int>() { 12, 10 }), new List<string>() { "Strength", "Precision" }, new List<int>() { 8, 7 }, 0.5f);
+            newWeapon("Trident", 26, -20, 4, (new List<string> { "Strength", "Precision" }), (new List<int>() { 15, 13 }), new List<string>() { "Strength", "Precision" }, new List<int>() { 8, 7 }, 2, 0.3f);
 
             newWeapon("Fire Staff", 72, -10, 5);
             newWeapon("Earth Staff", 66, -15, 5);
