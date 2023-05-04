@@ -13,6 +13,7 @@ namespace Basic_Text_Game.Classes
         public string name = "";
         public string desc = "";
         public string god = "";
+        public int roleLevel = 0;
         public static List<Role> roles = new List<Role>();
         public List<Stat> roleStats = new List<Stat>();
         public static Role roleContr = new Role();
@@ -33,6 +34,12 @@ namespace Basic_Text_Game.Classes
             role.name = name;
             role.desc = desc;
 
+            int total = 0;
+            foreach(Stat stat in role.roleStats)
+            {
+                total += stat.value;
+            }
+            role.roleLevel = total;
             roles.Add(role);
         }
 

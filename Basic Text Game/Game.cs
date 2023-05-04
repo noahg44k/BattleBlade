@@ -140,6 +140,7 @@ public class Game
                             "                          \\/_____/ \\/_____/ \\/_/\\/_/ \\/____/  \\/_____/ \n" +
                             "                                                           ");
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        Clock.printTime();
         tc('W');
     }
 
@@ -193,6 +194,7 @@ public class Game
                 {
                     Console.WriteLine(stat.name + ": " + stat.value);
                 }
+                Console.WriteLine("Level: " + classes.roleLevel);
                 Console.WriteLine("\n");
                 num++;
             }
@@ -520,7 +522,7 @@ public class Game
             }
         }
     }
-
+ 
     public static void welcomeNewSave()
     {
         PrintTitle();

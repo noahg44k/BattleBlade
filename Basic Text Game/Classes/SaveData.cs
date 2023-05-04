@@ -29,6 +29,10 @@ namespace Basic_Text_Game.Classes
         public int lvl { get; set; }
         public int distWalked { get; set; }
         public int lvlXpCap { get; set; }
+        public int clockDay { get; set; }
+        public int clockHour { get; set; }
+        public int clockMinute { get; set; }
+
     }
 
     //write all player data;
@@ -83,6 +87,9 @@ namespace Basic_Text_Game.Classes
                 data.lvl = Game.player.lvl;
                 data.distWalked = Game.player.distWalked;
                 data.lvlXpCap = Game.player.lvlXpCap;
+                data.clockDay = Clock.day;
+                data.clockHour = Clock.hour;
+                data.clockMinute = Clock.minute;
             };
 
             string fileName = "PlayerData.json";
@@ -125,6 +132,9 @@ namespace Basic_Text_Game.Classes
                 data.lvl = Game.player.lvl;
                 data.distWalked = Game.player.distWalked;
                 data.lvlXpCap = Game.player.lvlXpCap;
+                data.clockDay = Clock.day;
+                data.clockHour = Clock.hour;
+                data.clockMinute = Clock.minute;
             };
 
             string fileName = "PlayerData.json";
@@ -178,6 +188,7 @@ namespace Basic_Text_Game.Classes
             Game.player.lvl = data.lvl;
             Game.player.distWalked = data.distWalked;
             Game.player.lvlXpCap = data.lvlXpCap;
+            Clock.setClock(data.clockDay, data.clockHour, data.clockMinute);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Loaded player: " + Game.player.name);

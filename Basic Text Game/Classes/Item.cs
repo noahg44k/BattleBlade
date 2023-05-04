@@ -98,19 +98,23 @@ namespace Basic_Text_Game.Classes
             newWeapon.stage = stage;
             newWeapon.discoverChance = discoverChance;
 
-            newWeapon.minStats.Add("Strength", 1);
-            newWeapon.minStats.Add("Luck", 1);
-            newWeapon.minStats.Add("Vigor", 1);
-            newWeapon.minStats.Add("Speed", 1);
-            newWeapon.minStats.Add("Intelligence", 1);
-            newWeapon.minStats.Add("Precision", 1);
+            try
+            {
+                newWeapon.minStats.Add("Strength", 1);
+                newWeapon.minStats.Add("Luck", 1);
+                newWeapon.minStats.Add("Vigor", 1);
+                newWeapon.minStats.Add("Speed", 1);
+                newWeapon.minStats.Add("Intelligence", 1);
+                newWeapon.minStats.Add("Precision", 1);
 
-            newWeapon.sclStats.Add("Strength", 1);
-            newWeapon.sclStats.Add("Luck", 1);
-            newWeapon.sclStats.Add("Vigor", 1);
-            newWeapon.sclStats.Add("Speed", 1);
-            newWeapon.sclStats.Add("Intelligence", 1);
-            newWeapon.sclStats.Add("Precision", 1);
+                newWeapon.sclStats.Add("Strength", 1);
+                newWeapon.sclStats.Add("Luck", 1);
+                newWeapon.sclStats.Add("Vigor", 1);
+                newWeapon.sclStats.Add("Speed", 1);
+                newWeapon.sclStats.Add("Intelligence", 1);
+                newWeapon.sclStats.Add("Precision", 1);
+            }
+            catch{}
 
             if (minStatNames != null)
             {
@@ -155,19 +159,23 @@ namespace Basic_Text_Game.Classes
             newArmor.stage = stage;
             newArmor.discoverChance = discoverChance;
 
-            newArmor.minStats.Add("Strength", 1);
-            newArmor.minStats.Add("Luck", 1);
-            newArmor.minStats.Add("Vigor", 1);
-            newArmor.minStats.Add("Speed", 1);
-            newArmor.minStats.Add("Intelligence", 1);
-            newArmor.minStats.Add("Precision", 1);
+            try
+            {
+                newArmor.minStats.Add("Strength", 1);
+                newArmor.minStats.Add("Luck", 1);
+                newArmor.minStats.Add("Vigor", 1);
+                newArmor.minStats.Add("Speed", 1);
+                newArmor.minStats.Add("Intelligence", 1);
+                newArmor.minStats.Add("Precision", 1);
 
-            newArmor.sclStats.Add("Strength", 1);
-            newArmor.sclStats.Add("Luck", 1);
-            newArmor.sclStats.Add("Vigor", 1);
-            newArmor.sclStats.Add("Speed", 1);
-            newArmor.sclStats.Add("Intelligence", 1);
-            newArmor.sclStats.Add("Precision", 1);
+                newArmor.sclStats.Add("Strength", 1);
+                newArmor.sclStats.Add("Luck", 1);
+                newArmor.sclStats.Add("Vigor", 1);
+                newArmor.sclStats.Add("Speed", 1);
+                newArmor.sclStats.Add("Intelligence", 1);
+                newArmor.sclStats.Add("Precision", 1);
+            }
+            catch {}
 
             if (minStatNames != null)
             {
@@ -213,19 +221,23 @@ namespace Basic_Text_Game.Classes
             newItem.stackHeight = stackHeight;
             newItem.discoverChance = discoverChance;
 
-            newItem.minStats.Add("Strength", 1);
-            newItem.minStats.Add("Luck", 1);
-            newItem.minStats.Add("Vigor", 1);
-            newItem.minStats.Add("Speed", 1);
-            newItem.minStats.Add("Intelligence", 1);
-            newItem.minStats.Add("Precision", 1);
+            try
+            {
+                newItem.minStats.Add("Strength", 1);
+                newItem.minStats.Add("Luck", 1);
+                newItem.minStats.Add("Vigor", 1);
+                newItem.minStats.Add("Speed", 1);
+                newItem.minStats.Add("Intelligence", 1);
+                newItem.minStats.Add("Precision", 1);
 
-            newItem.sclStats.Add("Strength", 1);
-            newItem.sclStats.Add("Luck", 1);
-            newItem.sclStats.Add("Vigor", 1);
-            newItem.sclStats.Add("Speed", 1);
-            newItem.sclStats.Add("Intelligence", 1);
-            newItem.sclStats.Add("Precision", 1);
+                newItem.sclStats.Add("Strength", 1);
+                newItem.sclStats.Add("Luck", 1);
+                newItem.sclStats.Add("Vigor", 1);
+                newItem.sclStats.Add("Speed", 1);
+                newItem.sclStats.Add("Intelligence", 1);
+                newItem.sclStats.Add("Precision", 1);
+            }
+            catch { }
 
             if (minStatNames != null)
             {
@@ -273,9 +285,9 @@ namespace Basic_Text_Game.Classes
             //         name   dmg, heal, stg,               required skill              required skill lvl                  scaling skill         scaling skill amount
             newWeapon("Sword", 8, -3.5f, 1, (new List<string> { "Strength" }), (new List<int>() { 5 }), new List<string>() { "Strength"}, new List<int>() { 5 }, 1);
             newWeapon("Knife", 3, -1, 1, (new List<string> { "Speed" }), (new List<int>() { 3 }), new List<string>() { "Speed" }, new List<int>() { 3 }, 1);
-            newWeapon("Dagger", 3.5f, -1.5f, 1, (new List<string> { "Speed" }), (new List<int>() { 5 }), new List<string>() { "Speed" }, new List<int>() { 5 }, 0.8f);
+            newWeapon("Dagger", 5f, -1.5f, 1, (new List<string> { "Speed" }), (new List<int>() { 5 }), new List<string>() { "Speed" }, new List<int>() { 5 }, 0.8f);
             newWeapon("Short Bow", 10, -5, 1, (new List<string> { "Precision", "Strength" }), (new List<int>() { 6, 4 }), new List<string>() { "Precision", "Strength" }, new List<int>() { 6, 3 }, 0.7f);
-            newWeapon("Hatchet", 5f, -2, 1, (new List<string> { "Strength", "Speed" }), (new List<int>() { 3, 2 }), new List<string>() { "Strength", "Speed" }, new List<int>() { 3, 3 }, 0.8f);
+            newWeapon("Hatchet", 8f, -2, 1, (new List<string> { "Strength", "Speed" }), (new List<int>() { 3, 2 }), new List<string>() { "Strength", "Speed" }, new List<int>() { 3, 3 }, 0.8f);
 
             newWeapon("Crossbow", 14, -8, 2, (new List<string> { "Precision", "Strength" }), (new List<int>() { 6, 5 }), new List<string>() { "Precision", "Strength" }, new List<int>() { 5, 2 }, 0.85f);
             newWeapon("Spear", 13, -4, 2, (new List<string> { "Strength", "Precision" }), (new List<int>() { 6, 5 }), new List<string>() { "Strength", "Precision" }, new List<int>() { 5, 4 }, 1);
@@ -283,22 +295,22 @@ namespace Basic_Text_Game.Classes
             newWeapon("War Axe", 15.5f, -4, 2, (new List<string> { "Strength" }), (new List<int>() { 10 }), new List<string>() { "Strength" }, new List<int>() { 9 }, 0.8f);
             newWeapon("Club", 12, -5, 2, (new List<string> { "Strength" }), (new List<int>() { 7 }), new List<string>() { "Strength" }, new List<int>() { 9 }, 0.7f);
 
-            newWeapon("Electric Staff", 30, -6, 3, (new List<string> { "Intelligence" }), (new List<int>() { 10 }), new List<string>() { "Intelligence" }, new List<int>() { 8 });
-            newWeapon("Light Staff", 20, -2, 3, (new List<string> { "Intelligence" }), (new List<int>() { 7 }), new List<string>() { "Intelligence" }, new List<int>() { 6 });
-            newWeapon("Dark Staff", 20, -2, 3, (new List<string> { "Intelligence" }), (new List<int>() { 7 }), new List<string>() { "Intelligence" }, new List<int>() { 6 });
-            newWeapon("Poison Staff", 29, -20, 3, (new List<string> { "Intelligence" }), (new List<int>() { 5 }), new List<string>() { "Intelligence" }, new List<int>() { 5 });
-            newWeapon("Trident", 26, -20, 3, (new List<string> { "Strength", "Precision" }), (new List<int>() { 12, 10 }), new List<string>() { "Strength", "Precision" }, new List<int>() { 8, 7 }, 0.5f);
+            newWeapon("The Big One", 120, -40, 3);
+            newWeapon("Life Staff", 18, 100, 3);
+            newWeapon("Death Staff", 200, -100, 3);
+            newWeapon("Dragon Club", 212, -60, 3);
 
-            newWeapon("Fire Staff", 72, -10, 4);
-            newWeapon("Earth Staff", 66, -15, 4);
-            newWeapon("Battle Axe", 55, -5, 4);
-            newWeapon("Demon Blade", 88, -40, 4);//RARE
-            newWeapon("Great Zweihander", 61, -10, 4);
+            newWeapon("Electric Staff", 30, -6, 4, (new List<string> { "Intelligence" }), (new List<int>() { 10 }), new List<string>() { "Intelligence" }, new List<int>() { 8 });
+            newWeapon("Light Staff", 20, -2, 4, (new List<string> { "Intelligence" }), (new List<int>() { 7 }), new List<string>() { "Intelligence" }, new List<int>() { 6 });
+            newWeapon("Dark Staff", 20, -2, 4, (new List<string> { "Intelligence" }), (new List<int>() { 7 }), new List<string>() { "Intelligence" }, new List<int>() { 6 });
+            newWeapon("Poison Staff", 29, -20, 4, (new List<string> { "Intelligence" }), (new List<int>() { 5 }), new List<string>() { "Intelligence" }, new List<int>() { 5 });
+            newWeapon("Trident", 26, -20, 4, (new List<string> { "Strength", "Precision" }), (new List<int>() { 12, 10 }), new List<string>() { "Strength", "Precision" }, new List<int>() { 8, 7 }, 0.5f);
 
-            newWeapon("The Big One", 120, -40, 5);
-            newWeapon("Life Staff", 18, 100, 5);
-            newWeapon("Death Staff", 200, -100, 5);
-            newWeapon("Dragon Club", 212, -60, 5);
+            newWeapon("Fire Staff", 72, -10, 5);
+            newWeapon("Earth Staff", 66, -15, 5);
+            newWeapon("Battle Axe", 55, -5, 5);
+            newWeapon("Demon Blade", 88, -40, 5);//RARE
+            newWeapon("Great Zweihander", 61, -10, 5);
 
             newWeapon("Elder Staff", 700, 0, 6);
             newWeapon("Elder Blade", 2500, 0, 6);//LEGENDARY
@@ -329,8 +341,8 @@ namespace Basic_Text_Game.Classes
             newArmor("Elder Armor", 93, 6);
 
             //ITEMS
-            newItem("Health Potion", 35, 7, 5);
-            newItem("Large Health Potion", 90, 7, 3);
+            newItem("Health Potion", 55, 7, 5);
+            newItem("Large Health Potion", 100, 7, 3);
             newItem("Wolf Meat", 20, 1, 10);
             newItem("Orc Meat", 15, 1, 10);
             newItem("Spider Meat", 10, 2, 10);

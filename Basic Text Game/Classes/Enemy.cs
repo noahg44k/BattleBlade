@@ -25,9 +25,9 @@ namespace Basic_Text_Game.Classes
         {
             Enemy copy = new Enemy();
             copy.name = enemy.name;
-            copy.health = enemy.health;
+            copy.health = genRandomHealth((int)enemy.health-5, (int)enemy.health+5);
             copy.dmg = enemy.dmg;
-            copy.XP = enemy.XP;
+            copy.XP = genRandomXP((int)(enemy.XP-(enemy.XP*0.25f)), (int)(enemy.XP + (enemy.XP * 0.25f)));
             copy.ID = enemy.ID;
 
             return copy;
@@ -60,6 +60,24 @@ namespace Basic_Text_Game.Classes
             }
         }
 
+        private int genRandomHealth(int min, int max)
+        {
+            int health = 1;
+
+            Random r = new Random();
+            health = r.Next(min, max + 1);
+            return health;
+        }
+
+        private int genRandomXP(int min, int max)
+        {
+            int XP = 1;
+
+            Random r = new Random();
+            XP = r.Next(min, max + 1);
+            return XP;
+        }
+
         public void buildEnemyDex()
         {
             newEnemy("Dryad", 10, 2, 4, 1);
@@ -71,24 +89,24 @@ namespace Basic_Text_Game.Classes
             newEnemy("Spider", 12, 7, 28, 2);
             newEnemy("Ghoul", 28, 14, 56, 2);
             newEnemy("Ghost", 1, 12.3f, 49, 2);
-            newEnemy("Banshee", 34, 15.2f, 60, 2);
-            newEnemy("Skeleton", 12, 11, 51, 2);
+            newEnemy("Banshee", 68, 15.2f, 60, 2);
+            newEnemy("Skeleton", 50, 11, 51, 2);
             newEnemy("Lich", 55, 20.8f, 100, 2);
 
-            newEnemy("Drake", 150, 40, 30000, 3);
-            newEnemy("Wyvern", 235, 65, 76375, 3);
-            newEnemy("Dragon", 500, 85, 212500, 3);
-            newEnemy("Hippogriff", 200, 35, 35000, 3);
-            newEnemy("Wyrm", 2000, 0, 1000000, 3); // LEGENDARY
+            newEnemy("Drake", 150, 40, 200, 3);
+            newEnemy("Wyvern", 235, 65, 400, 3);
+            newEnemy("Dragon", 500, 85, 500, 3);
+            newEnemy("Hippogriff", 200, 35, 370, 3);
+            newEnemy("Wyrm", 2000, 0, 2500, 3); // LEGENDARY
 
-            newEnemy("Fisk", 67, 27, 72, 4);
-            newEnemy("Torkle", 84, 34, 90, 4);
-            newEnemy("Eel", 104, 46f, 200, 4);
-            newEnemy("Siren", 120, 58f, 500, 4);
-            newEnemy("Kraken", 210, 75f, 725, 4);
+            newEnemy("Fisk", 67, 27, 400, 4);
+            newEnemy("Torkle", 84, 34, 600, 4);
+            newEnemy("Eel", 104, 46f, 800, 4);
+            newEnemy("Siren", 120, 58f, 1200, 4);
+            newEnemy("Kraken", 210, 75f, 1500, 4);
 
-            newEnemy("Oxmen", 220, 60, 1028, 5);
-            newEnemy("Inferno Golem", 500, 125.6f, 20000, 5); //LEGENDARY
+            newEnemy("Oxmen", 220, 60, 2028, 5);
+            newEnemy("Inferno Golem", 500, 125.6f, 10000, 5); //LEGENDARY
             newEnemy("Demon", 80, 85, 2580, 5);
             newEnemy("Steel Golem", 405, 109.7f, 5122, 5);
 
@@ -201,11 +219,13 @@ namespace Basic_Text_Game.Classes
                         if (choice.Contains("attack") || choice.Contains("1"))
                         {
                             Game.player.attack();
+                            Clock.increaseTime(1);
                             break;
                         }
                         else if (choice.Contains("item") || choice.Contains("2"))
                         {
                             Game.player.useItem();
+                            Clock.increaseTime(1);
                             break;
                         }
                         else if (choice.Contains("run") || choice.Contains("3") || choice.Contains("exit"))
@@ -247,6 +267,7 @@ namespace Basic_Text_Game.Classes
                 {
                     Console.WriteLine("\n"+currentEnemy.name + " attacked!");
                     Game.player.takeDamage(currentEnemy.dmg);
+                    Clock.increaseTime(1);
                 }
             }
 

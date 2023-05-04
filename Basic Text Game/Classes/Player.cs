@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Basic_Text_Game.Classes
         public int lvl = 1;
         public int distWalked = 0;
         public int lvlXpCap = 25;
+        public int faith = 0;
 
         public Item getInvItem(string name)
         {
@@ -38,6 +40,20 @@ namespace Basic_Text_Game.Classes
             return null;
         }
 
+        public int determineXPCap()
+        {
+            int xpCap = 25;
+
+            int total = 0;
+            foreach (Stat stat in role.roleStats)
+            {
+                total += stat.value;
+            }
+            role.roleLevel = total;
+            xpCap += 5 * role.roleLevel;
+            return xpCap;
+        }
+
         public void resetPlayer()
         {
             name = "";
@@ -47,8 +63,11 @@ namespace Basic_Text_Game.Classes
             dmgMod = 1;
             AR = 0; //ARMOR RATING
             xp = 0;
+            lvlXpCap = 25;
             lvl = 1;
             distWalked = 0;
+            faith = 0;
+            Clock.resetClock();
             inventory.Clear();
             inventory.Add(Item.getItem("fist"));
             currentWeapon = getInvItem("fist");
@@ -61,9 +80,11 @@ namespace Basic_Text_Game.Classes
         {
             xp += newXP;
 
-            if (xp >= lvlXpCap)
+            lvlXpCap = determineXPCap();
+
+            while(xp >= lvlXpCap)
             {
-                lvlUp();
+                 lvlUp();
             }
         }
 
@@ -122,30 +143,13 @@ namespace Basic_Text_Game.Classes
                     {
                         Game.PrintTitle();
                         Game.tc('W');
-                        Console.WriteLine("You want to increase Luck?");
+                        Console.WriteLine("Cannot upgrade luck. Pray to your god to increase luck.");
                         Thread.Sleep(500);
                         Game.tc('g');
-                        Console.WriteLine("y/n");
-                        string confirm = Console.ReadLine().ToLower();
-                        if (confirm.Contains("y"))
-                        {
-                            role.raiseStat("Luck");
-                            return;
-                        }
-                        else if (confirm.Contains("n"))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Game.tc('R');
-                            Console.WriteLine("Invalid input");
-                            Thread.Sleep(500);
-                            Game.tc('g');
-                            Console.WriteLine("Press any key to continue");
-                            Game.tc('W');
-                            Console.ReadKey();
-                        }
+                        Console.WriteLine("Press any key to continue");
+                        Game.tc('W');
+                        Console.ReadKey();
+                        break;
                     }
                 }
                 else if (choice.Contains("3") || choice.Contains("vig"))
@@ -285,7 +289,7 @@ namespace Basic_Text_Game.Classes
             Map.Stage beforeStage = Game.map.getStage();
 
             lvl++;
-            lvlXpCap *= 2;
+            lvlXpCap = determineXPCap();
             xp -= 200;
             if (xp < 0)
             {
@@ -357,6 +361,8 @@ namespace Basic_Text_Game.Classes
         }
 
         //ATTACK VARS
+        //USED FOR "TIRING YOU OUT"
+        //INCREASES THE AMOUNT OF REST YOU CAN HAVE IF YOU ATTACK FOUR TIMES
         int numOfAttacks = 0;
 
         public float calculateDamage(int lvl, int minStat, int scaleStat)
@@ -368,7 +374,7 @@ namespace Basic_Text_Game.Classes
             int difference = lvl - minStat;
             // SCALES DAMAGE UP EXPONENTIALLY FOR EACH LEVEL ABOVE
             // MINIMUM * SCALE VALUE FOR THAT STAT
-            newDmg = (float)(Math.Pow(dmgMultiplier, difference)) * (1 + (scaleStat * 0.8f));
+            newDmg = (float)(Math.Pow(dmgMultiplier, difference)) * (1 + (scaleStat * 0.5f))-1;
             return newDmg;
         }
 
@@ -468,6 +474,14 @@ namespace Basic_Text_Game.Classes
             return damage;
         }
 
+        private float determineAtkDmg(float wepDmg)
+        {
+            float damage = 0;
+            Random r = new Random();
+            damage = r.Next((int)(wepDmg - (wepDmg * 0.25f)), (int)(wepDmg + (wepDmg * 0.25f)))+1;
+            return damage;
+        }
+
         public void attack()
         {
             while (true)
@@ -508,7 +522,7 @@ namespace Basic_Text_Game.Classes
                         if(critChance == 4)
                         {
                             Game.PrintTitle();
-                            dmg = (currentWeapon.wepDmg + wepDamageWithWeaponScaling(currentWeapon)) * 5; //ADD DAMAGE BASED ON WEAPON SCALING AND WEAPON MIN SKILL WIELD LVL;
+                            dmg = (determineAtkDmg(currentWeapon.wepDmg + wepDamageWithWeaponScaling(currentWeapon)) * 5); //ADD DAMAGE BASED ON WEAPON SCALING AND WEAPON MIN SKILL WIELD LVL;
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("CRITICAL HIT");
                             Game.tc('W');
@@ -523,7 +537,7 @@ namespace Basic_Text_Game.Classes
                         else
                         {
                             Game.PrintTitle();
-                            dmg = currentWeapon.wepDmg + wepDamageWithWeaponScaling(currentWeapon);//ADD DAMAGE BASED ON WEAPON SCALING AND WEAPON MIN SKILL WIELD LVL
+                            dmg = determineAtkDmg(currentWeapon.wepDmg + wepDamageWithWeaponScaling(currentWeapon));//ADD DAMAGE BASED ON WEAPON SCALING AND WEAPON MIN SKILL WIELD LVL
                             Console.WriteLine("You attacked with {0}", currentWeapon.name + "!");
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("You dealt {0}", dmg.ToString("0.00") + " damage!");
@@ -706,7 +720,27 @@ namespace Basic_Text_Game.Classes
             while(true)
             {
                 Game.PrintTitle();
+                Game.tc('Y');
+                Console.WriteLine("PRAY TO YOUR GOD: " + role.god);
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n");
+                Game.tc('g');
+                Console.WriteLine("Faith: " + faith);
+                Game.tc('Y');
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("What would you like to pray for?");
+                Console.WriteLine("1. Favor");
+                Console.WriteLine("2. Luck");
+                Console.WriteLine("3. Weapon Imbuement");
+                Game.tc('g');
+                Console.WriteLine("Praying increases faith, which is used to cast blessings.");
+                Console.WriteLine("Press 9 or type exit");
                 Console.WriteLine("");
+
+                string input = Console.ReadLine().ToLower();
+                if (input.Contains("exit") || input.Contains("9"))
+                {
+                    return;
+                }
             }
         }
 
@@ -725,6 +759,7 @@ namespace Basic_Text_Game.Classes
             if (restLevel <= restLimit)
             {
                 Console.WriteLine("You rested for {0}", num + " hours.\n");
+                Clock.increaseTime(num, 0);
                 num = rand.Next(0, 4);
                 switch (num)
                 {
@@ -783,6 +818,7 @@ namespace Basic_Text_Game.Classes
             Random rand = new Random();
             int num = rand.Next(0, 7);
             int previousDist = 0;
+            int walkTime;
 
             Game.PrintTitle();
             Console.WriteLine("                                            (  N  )");
@@ -803,6 +839,8 @@ namespace Basic_Text_Game.Classes
                     int dist = rand.Next(4, 15);
                     Console.WriteLine("After a long voyage of {0}", dist + " miles, you lay on the floor and take a rest.");
                     distWalked += dist;
+                    walkTime = dist * 16;
+                    Clock.increaseTime(walkTime);
                     Thread.Sleep(500);
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine("Press any key to continue");
@@ -838,6 +876,8 @@ namespace Basic_Text_Game.Classes
                     dist = rand.Next(4, 15);
                     Console.WriteLine("After a long voyage of {0}", dist + " miles, you decide you can continue.");
                     distWalked += dist;
+                    walkTime = dist * 16;
+                    Clock.increaseTime(walkTime);
                     Thread.Sleep(500);
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine("Press any key to continue");
@@ -849,6 +889,8 @@ namespace Basic_Text_Game.Classes
                     dist = rand.Next(4, 15);
                     Console.WriteLine("After a long voyage of {0}", dist + " miles, you decide you can continue.");
                     distWalked += dist;
+                    walkTime = dist * 16;
+                    Clock.increaseTime(walkTime);
                     Thread.Sleep(500);
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine("Press any key to continue");
@@ -1220,8 +1262,8 @@ namespace Basic_Text_Game.Classes
         public void printStats()
         {
             string choice = "";
-            string[] leftStats = new string[7];
-            string[] rightStats = new string[7];
+            string[] leftStats = new string[8];
+            string[] rightStats = new string[8];
             while (true)
             {
                 Game.PrintTitle();
@@ -1229,11 +1271,12 @@ namespace Basic_Text_Game.Classes
                 string healthStr = "HP: " + health.ToString("0.0");
                 string maxHealthStr = "Max HP: " + maxHealth.ToString("0.0");
                 string xpStr = "XP: " + xp.ToString("0.0");
-                string nxtLvl = "XP until next level: " + (lvlXpCap - xp).ToString("0.0");
+                string nxtLvl = "XP until next level: " + (determineXPCap() - xp).ToString("0.0");
                 string lvlStr = "Level: " + lvl;
                 string distWalkedStr = "Distance Walked: " + distWalked.ToString();
                 string curStageStr = "Current Stage: " + Game.map.getStage().ToString();
                 string armorStr = "Armor Rating: " + AR.ToString();
+                string faithStr = "Faith: " + faith;
                 string strength = role.getStat("Strength").name + ": " + role.getStat("Strength").value;
                 string luck = role.getStat("Luck").name + ": " + role.getStat("Luck").value;
                 string vigor = role.getStat("Vigor").name + ": " + role.getStat("Vigor").value;
@@ -1248,14 +1291,16 @@ namespace Basic_Text_Game.Classes
                 leftStats[4] = luck;
                 leftStats[5] = speed;
                 leftStats[6] = precision;
+                leftStats[7] = strength;
 
                 rightStats[0] = maxHealthStr;
                 rightStats[1] = nxtLvl;
                 rightStats[2] = curStageStr;
-                rightStats[3] = strength;
+                rightStats[3] = faithStr;
                 rightStats[4] = vigor;
                 rightStats[5] = intelligence;
                 rightStats[6] = armorStr;
+                rightStats[7] = "";
 
 
                 Console.WriteLine("\n"+Game.player.name + "'s Stats\n~~~~~~~~~~~~~~~~~~\n");
