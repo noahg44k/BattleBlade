@@ -150,9 +150,10 @@ namespace Basic_Text_Game.Classes
 
             currentEnemy = copyEnemy(stageEnemies.ElementAt(enemyType));
 
+            //ROLLING RANDOM ENCOUNTER DIALOGUE
             if (num == 0)
             {
-                Console.WriteLine("Oh no! You encountered a {0}", currentEnemy.name + "!");
+                Console.WriteLine("Oh no! You've encountered a {0}", currentEnemy.name + "!");
                 Thread.Sleep(500);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Press any key to continue");
@@ -161,7 +162,7 @@ namespace Basic_Text_Game.Classes
             }
             else if (num == 1)
             {
-                Console.WriteLine("Uh oh! You encountered a {0}", currentEnemy.name + "!");
+                Console.WriteLine("A {0}", currentEnemy.name + " approaches!");
                 Thread.Sleep(500);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Press any key to continue");
@@ -171,7 +172,7 @@ namespace Basic_Text_Game.Classes
             }
             else if (num == 2)
             {
-                Console.WriteLine("Look out! You encountered a {0}", currentEnemy.name + "!");
+                Console.WriteLine("You've come across a {0}", currentEnemy.name + "!");
                 Thread.Sleep(500);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Press any key to continue");
@@ -180,23 +181,25 @@ namespace Basic_Text_Game.Classes
             }
             else if (num == 3)
             {
-                Console.WriteLine("Ahhhhh! You encountered a {0}", currentEnemy.name + "!");
+                Console.WriteLine("You've encountered a {0}", currentEnemy.name + "!");
                 Thread.Sleep(500);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Press any key to continue");
                 Game.tc('W');
                 Console.ReadKey();
             }
+            //ROLLING RANDOM ENCOUNTER DIALOGUE ^^^^
 
+            //LOGIC FOR ACTUAL FIGHT vvvv
             while (currentEnemy.health > 0 && keepFighting)
             {
                 while(true)
                 {
                     try
                     {
+                        //DISPLAY STUFF vvvv
                         SaveData.Save();
                         Game.PrintTitle();
-
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine(Game.player.name);
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -208,6 +211,8 @@ namespace Basic_Text_Game.Classes
                         Console.WriteLine("Enemy Damage: {0}", currentEnemy.dmg.ToString("0.00"));
                         Game.tc('W');
                         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+                        //WHAT WOULD U LIKE TO DO vvvv
                         Console.WriteLine("\nWhat would you like to do?\n");
 
                         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -216,18 +221,22 @@ namespace Basic_Text_Game.Classes
                         Console.WriteLine("Run away");
                         Game.tc('W');
                         choice = Console.ReadLine().ToLower();
+
+                        //ATTACK vvvv
                         if (choice.Contains("attack") || choice.Contains("1"))
                         {
-                            AttackController.playerAttack();
+                            AttackController.newPlayerAttack();
                             Clock.increaseTime(1);
                             break;
                         }
+                        //ITEM vvvv
                         else if (choice.Contains("item") || choice.Contains("2"))
                         {
                             Game.player.useItem();
                             Clock.increaseTime(1);
                             break;
                         }
+                        //RUN vvvv
                         else if (choice.Contains("run") || choice.Contains("3") || choice.Contains("exit"))
                         {
                             Game.PrintTitle();
@@ -246,6 +255,7 @@ namespace Basic_Text_Game.Classes
 
                         }
                     }
+                    //INVALID INPUT vvvv
                     catch
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -261,16 +271,15 @@ namespace Basic_Text_Game.Classes
                     }
                 }
 
-                //ENEMY ATTACK
-
+                //ENEMY ATTACK vvvv
                 if (completedAction && currentEnemy.health > 0)
                 {
-                    Console.WriteLine("\n"+currentEnemy.name + " attacked!");
-                    Game.player.takeDamage(currentEnemy.dmg);
+                    AttackController.enemyAttack();
                     Clock.increaseTime(1);
                 }
             }
 
+            //ENEMY IS SLAIN vvvv
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n\nWell done! You slayed the " + currentEnemy.name + "!");
             Console.WriteLine("You gained " + currentEnemy.XP + "xp points!");
@@ -281,6 +290,7 @@ namespace Basic_Text_Game.Classes
 
             Game.player.addXP(currentEnemy.XP);
 
+            //FINDING LOOT AFTER ENEMY IS KILLED vvvv
             int chance = rand.Next(0, 8);
             if (chance == 7)
             {
