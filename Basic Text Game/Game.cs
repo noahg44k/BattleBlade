@@ -170,7 +170,7 @@ public class Game
 
     public static void ChooseClass()
     {
-        Role.roleContr.buildRoleIndex();
+        Role.buildRoleIndex();
         PrintTitle();
         Thread.Sleep(2000);
         string choice = "";
@@ -195,6 +195,7 @@ public class Game
                     Console.WriteLine(stat.name + ": " + stat.value);
                 }
                 Console.WriteLine("Level: " + classes.roleLevel);
+                Console.WriteLine("God: " + classes.god);
                 Console.WriteLine("\n");
                 num++;
             }
@@ -216,7 +217,7 @@ public class Game
 
                     if (answer.ToLower().Contains("y"))
                     {
-                        player.role = Role.roleContr.getRole("Thief");
+                        Role.assignRole("Thief");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You selected the Thief class!");
                         Thread.Sleep(500);
@@ -258,7 +259,7 @@ public class Game
 
                     if (answer.ToLower().Contains("y"))
                     {
-                        player.role = Role.roleContr.getRole("Knight");
+                        Role.assignRole("Knight");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You selected the Knight class!");
                         Thread.Sleep(500);
@@ -299,7 +300,7 @@ public class Game
 
                     if (answer.ToLower().Contains("y"))
                     {
-                        player.role = Role.roleContr.getRole("Sorcerer");
+                        Role.assignRole("Sorcerer");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You selected the Sorcerer class!");
                         Thread.Sleep(500);
@@ -340,7 +341,7 @@ public class Game
 
                     if (answer.ToLower().Contains("y"))
                     {
-                        player.role = Role.roleContr.getRole("Archer");
+                        Role.assignRole("Archer");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You selected the Archer class!");
                         Thread.Sleep(500);
@@ -381,7 +382,7 @@ public class Game
 
                     if (answer.ToLower().Contains("y"))
                     {
-                        player.role = Role.roleContr.getRole("Barren");
+                        Role.assignRole("Barren");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You selected the Barren class!");
                         Thread.Sleep(500);
@@ -422,7 +423,7 @@ public class Game
 
                     if (answer.ToLower().Contains("y"))
                     {
-                        player.role = Role.roleContr.getRole("Blest");
+                        Role.assignRole("Blest");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("You selected the Blest class!");
                         Thread.Sleep(500);
@@ -537,7 +538,7 @@ public class Game
         while (true)
         {
             ChooseClass();
-            player.maxHealth = Role.roleContr.calculateHealth(player.role.getStat("Vigor").value);
+            player.maxHealth = Role.calculateHealth(player.role.getStat("Vigor").value);
             player.health = player.maxHealth;
             PrintTitle();
             Console.WriteLine("Let's begin!");

@@ -16,9 +16,8 @@ namespace Basic_Text_Game.Classes
         public int roleLevel = 0;
         public static List<Role> roles = new List<Role>();
         public List<Stat> roleStats = new List<Stat>();
-        public static Role roleContr = new Role();
 
-        public void newRole(string name, string god, string desc, int str, int luck, int vig, int spd, int inl, int prc)
+        public static void newRole(string name, string god, string desc, int str, int luck, int vig, int spd, int inl, int prc)
         {
             Role role = new Role();
 
@@ -43,7 +42,13 @@ namespace Basic_Text_Game.Classes
             roles.Add(role);
         }
 
-        public Role getRole(string name)
+        public static void assignRole(string name)
+        {
+            Role role = getRole(name);
+            Game.player.role = role;
+        }
+
+        private static Role getRole(string name)
         {
             foreach(Role role in roles)
             {
@@ -62,7 +67,7 @@ namespace Basic_Text_Game.Classes
             return null;
         }
 
-        public void buildRoleIndex()
+        public static void buildRoleIndex()
         {
             newRole("Thief", "Godess Vica", "A swift and cunning assassin type class, " +
                 "proficient with daggers and knives. \nGodess Vica watches " +
@@ -86,7 +91,7 @@ namespace Basic_Text_Game.Classes
                 "all blest.", 4, 12, 4, 4, 4, 4);
         }
 
-        public float calculateHealth(int lvl)
+        public static float calculateHealth(int lvl)
         {
             float healthMultiplier = 1.1f;
             float baseHealth = 68.302f;

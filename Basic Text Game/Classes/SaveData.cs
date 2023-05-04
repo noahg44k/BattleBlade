@@ -173,7 +173,8 @@ namespace Basic_Text_Game.Classes
             {
                 Game.player.role.roleStats.Add(Stat.statContr.newStat(data.stats[i], data.statValues[i]));
             }
-            Game.player.role.name = data.roleName;
+            Role.buildRoleIndex();
+            Role.assignRole(data.roleName);
             Game.player.currentWeapon = Item.getItem(data.currentWeapon);
             Game.player.currentWeapon.equipped = true;
             Game.player.currentArmor = Item.getItem(data.currentArmor);
